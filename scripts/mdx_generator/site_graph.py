@@ -1,13 +1,20 @@
 from __future__ import annotations
 
 import os
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-from .config import CATEGORY_ORDER, POISON_PAGE_TITLES
+from .config import CATEGORY_ORDER, GENERIC_JSON_STEMS, POISON_PAGE_TITLES
 from .preprocessor import clean_page_title, load_and_check_json_file, slugify
+
+_LEADING_NUM_RE = re.compile(r"^\d+[-_\s]+")
+_FOLDER_SUFFIX_RE = re.compile(
+    r"[-_\s]+(?:govcon[-_\s]*360[-_\s]*(?:internal|public[-_\s]*site)?(?:[-_\s]*liferay)?|asponte[-_\s]*technology[-_\s]*inc|liferay)$",
+    re.IGNORECASE,
+)
 
 
 @dataclass
@@ -32,6 +39,54 @@ def normalize_route_path(raw_url: str) -> str:
     if not path.startswith("/"):
         path = "/" + path
     return path.rstrip("/") or "/"
+
+
+def _title_from_folder_name(folder_name: str) -> str:
+    """Turn '009-vendors-asponte-technology-inc' into 'Vendors'."""
+    name = _LEADING_NUM_RE.sub("", (folder_name or "").strip())
+    # Strip trailing tenant/portal suffixes repeatedly if chained
+    prev = None
+    while prev != name:
+        prev = name
+        name = _FOLDER_SUFFIX_RE.sub("", name).strip("-_ ")
+    if not name or name.lower() in GENERIC_JSON_STEMS:
+        return ""
+    return " ".join(w.capitalize() if w.islower() else w for w in re.split(r"[-_\s]+", name) if w)
+
+
+def _extract_first_h1(rec: dict[str, Any]) -> str:
+    headings = rec.get("headings")
+    if isinstance(headings, dict):
+        for level in ("h1", "h2"):
+            items = headings.get(level) or []
+            for h in items:
+                if isinstance(h, str) and h.strip():
+                    return h.strip()
+    elif isinstance(headings, list):
+        for h in headings:
+            if isinstance(h, str) and h.strip():
+                return h.strip()
+    return ""
+
+
+def _resolve_frontend_title(jf: Path, rec: dict[str, Any]) -> str:
+    """Pick the cleanest human-readable title, never falling back to generic stems like 'page'."""
+    candidates = [
+        rec.get("pageHeading"),
+        rec.get("pageTitle"),
+        rec.get("title"),
+        _extract_first_h1(rec),
+        _title_from_folder_name(jf.parent.name),
+        "" if jf.stem.lower() in GENERIC_JSON_STEMS else jf.stem,
+    ]
+    fallback_folder = _title_from_folder_name(jf.parent.name) or "Overview"
+    for cand in candidates:
+        if not cand or not isinstance(cand, str):
+            continue
+        cleaned = clean_page_title(cand, fallback_folder)
+        if cleaned and cleaned.lower() not in GENERIC_JSON_STEMS:
+            return cleaned
+    return fallback_folder
 
 
 def infer_category(route: str, title: str, nav_route_to_cat: dict[str, str]) -> tuple[str, str]:
@@ -109,8 +164,7 @@ def build_site_graph(json_files: list[Path]) -> tuple[list[PlannedDoc], dict[str
     route_to_rel_path: dict[str, str] = {}
 
     for jf, rec in raw_records:
-        raw_title = rec.get("pageHeading") or rec.get("pageTitle") or rec.get("title") or jf.stem
-        title = clean_page_title(str(raw_title), jf.parent.name)
+        title = _resolve_frontend_title(jf, rec)
         if title.lower() in POISON_PAGE_TITLES:
             continue
 
