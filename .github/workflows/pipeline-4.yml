@@ -28,16 +28,19 @@ jobs:
           cache: 'npm'
           cache-dependency-path: docusaurus/package-lock.json
 
-      - name: Install Dependencies & Build Docusaurus
+      - name: Install Dependencies & Build Isolated Portals
         working-directory: ./docusaurus
         run: |
           npm ci --prefer-offline
-          npm run build
+          rm -rf build-all
+          DOCS_PORTAL=user   npx docusaurus build --out-dir build-all/user
+          DOCS_PORTAL=client npx docusaurus build --out-dir build-all/client
+          DOCS_PORTAL=admin  npx docusaurus build --out-dir build-all/admin
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: ./docusaurus/build
+          path: ./docusaurus/build-all
 
   deploy:
     needs: build
