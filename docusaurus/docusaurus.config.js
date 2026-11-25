@@ -1,9 +1,34 @@
 // @ts-check
 import {themes as prismThemes} from 'prism-react-renderer';
 
+const portal = process.env.DOCS_PORTAL || 'user';
+
+const portalConfigs = {
+  user: {
+    title: 'User Docs',
+    path: 'docs/govcon360-system-documentation',
+    baseUrl: '/central-docs-hub/user/',
+  },
+  client: {
+    title: 'Client Docs',
+    path: 'docs/client-documentation',
+    baseUrl: '/central-docs-hub/client/',
+  },
+  admin: {
+    title: 'Admin Docs',
+    path: 'docs/admin-documentation',
+    baseUrl: '/central-docs-hub/admin/',
+  },
+};
+
+const activePortal = portalConfigs[portal];
+if (!activePortal) {
+  throw new Error(`Invalid DOCS_PORTAL "${portal}". Use: user, client, or admin.`);
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Central Docs Hub',
+  title: activePortal.title,
   tagline: 'Automated Documentation Portal',
   favicon: 'img/favicon.ico',
 
@@ -21,7 +46,7 @@ const config = {
   themes: ['@docusaurus/theme-mermaid'],
 
   url: 'https://harshh122.github.io',
-  baseUrl: '/central-docs-hub/',
+  baseUrl: activePortal.baseUrl,
 
   organizationName: 'harshh122',
   projectName: 'central-docs-hub',
@@ -39,45 +64,18 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: false, // Disabled so the 3 isolated portal plugins below handle routing
+        docs: {
+          path: activePortal.path,
+          routeBasePath: '/', // Serves this portal's docs at its root URL
+          editUrl:
+            'https://github.com/harshh122/central-docs-hub/tree/main/docusaurus/',
+        },
         blog: false,
+        pages: false, // Prevents shared homepage from linking across portals
         theme: {
           customCss: './src/css/custom.css',
         },
       }),
-    ],
-  ],
-
-  plugins: [
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'user',
-        path: 'docs/govcon360-system-documentation',
-        routeBasePath: 'docs/user',
-        editUrl:
-          'https://github.com/harshh122/central-docs-hub/tree/main/docusaurus/',
-      },
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'client',
-        path: 'docs/client-documentation',
-        routeBasePath: 'docs/client',
-        editUrl:
-          'https://github.com/harshh122/central-docs-hub/tree/main/docusaurus/',
-      },
-    ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'admin',
-        path: 'docs/admin-documentation',
-        routeBasePath: 'docs/admin',
-        editUrl:
-          'https://github.com/harshh122/central-docs-hub/tree/main/docusaurus/',
-      },
     ],
   ],
 
@@ -89,27 +87,12 @@ const config = {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'Central Docs Hub',
+        title: activePortal.title,
         logo: {
-          alt: 'Central Docs Hub Logo',
+          alt: `${activePortal.title} Logo`,
           src: 'img/logo.svg',
         },
         items: [
-          {
-            to: '/docs/user',
-            label: 'User Docs',
-            position: 'left',
-          },
-          {
-            to: '/docs/client',
-            label: 'Client Docs',
-            position: 'left',
-          },
-          {
-            to: '/docs/admin',
-            label: 'Admin Docs',
-            position: 'left',
-          },
           {
             href: 'https://github.com/harshh122/central-docs-hub',
             label: 'GitHub',
@@ -121,23 +104,6 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Portals',
-            items: [
-              {
-                label: 'User Docs',
-                to: '/docs/user',
-              },
-              {
-                label: 'Client Docs',
-                to: '/docs/client',
-              },
-              {
-                label: 'Admin Docs',
-                to: '/docs/admin',
-              },
-            ],
-          },
-          {
             title: 'More',
             items: [
               {
@@ -147,7 +113,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Central Docs Hub. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} ${activePortal.title}. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
