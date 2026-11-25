@@ -1,0 +1,9 @@
+{
+  "label": "APIs and Services",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "title": "APIs and Services",
+    "description": "Liferay and Spring Boot REST API specifications."
+  }
+}

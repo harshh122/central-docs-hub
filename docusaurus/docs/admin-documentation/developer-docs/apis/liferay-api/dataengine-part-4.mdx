@@ -1,0 +1,427 @@
+---
+id: "dataengine-part-4"
+title: "DataEngine (Part 4 of 5)"
+sidebar_position: 12
+description: "DataEngine Global REST API documentation part 4 detailing 15 record and collection endpoints."
+---
+
+[Part 1](./dataengine.mdx)
+
+## Endpoints
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-records/export-batch`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.postDataDefinitionDataRecordsPageExportBatch`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | **Yes** |
+| `dataListViewId` | query | string | No |
+| `keywords` | query | string | No |
+| `sort` | query | string | No |
+| `callbackURL` | query | string | No |
+| `contentType` | query | string | No |
+| `fieldNames` | query | string | No |
+
+**Response**
+
+```json
+{
+  "status": "ACCEPTED"
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-record-collections/{dataRecordCollectionId}/data-records`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.getDataRecordCollectionDataRecordsPage`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataRecordCollectionId` | path | string | **Yes** |
+| `dataListViewId` | query | string | No |
+| `keywords` | query | string | No |
+| `page` | query | string | No |
+| `pageSize` | query | string | No |
+| `sort` | query | string | No |
+
+**Response**
+
+```json
+{
+  "items": [],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 0
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-record-collections/{dataRecordCollectionId}/data-records`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.postDataRecordCollectionDataRecord`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataRecordCollectionId` | path | string | **Yes** |
+
+**Request Body**
+
+```json
+{
+  "values": {}
+}
+```
+
+**Response**
+
+```json
+{
+  "id": "string",
+  "values": {}
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-record-collections/{dataRecordCollectionId}/data-records/batch`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.postDataRecordCollectionDataRecordBatch`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataRecordCollectionId` | path | string | **Yes** |
+| `callbackURL` | query | string | No |
+
+**Request Body**
+
+```json
+{
+  "records": []
+}
+```
+
+**Response**
+
+```json
+{
+  "status": "ACCEPTED"
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-record-collections/{dataRecordCollectionId}/data-records/export`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.getDataRecordCollectionDataRecordExport`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataRecordCollectionId` | path | string | **Yes** |
+| `page` | query | string | No |
+| `pageSize` | query | string | No |
+
+**Response**
+
+```json
+"Export file content or download link"
+```
+
+---
+
+### POST `/data-engine/v2.0/data-record-collections/{dataRecordCollectionId}/data-records/export-batch`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.postDataRecordCollectionDataRecordsPageExportBatch`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataRecordCollectionId` | path | string | **Yes** |
+| `dataListViewId` | query | string | No |
+| `keywords` | query | string | No |
+| `sort` | query | string | No |
+| `callbackURL` | query | string | No |
+| `contentType` | query | string | No |
+| `fieldNames` | query | string | No |
+
+**Response**
+
+```json
+{
+  "status": "ACCEPTED"
+}
+```
+
+---
+
+### DELETE `/data-engine/v2.0/data-records/batch`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.deleteDataRecordBatch`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `callbackURL` | query | string | No |
+
+**Request Body**
+
+```json
+{
+  "ids": []
+}
+```
+
+**Response**
+
+```json
+{
+  "status": "ACCEPTED"
+}
+```
+
+---
+
+### PUT `/data-engine/v2.0/data-records/batch`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.putDataRecordBatch`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `callbackURL` | query | string | No |
+
+**Request Body**
+
+```json
+{
+  "records": []
+}
+```
+
+**Response**
+
+```json
+{
+  "status": "ACCEPTED"
+}
+```
+
+---
+
+### DELETE `/data-engine/v2.0/data-records/{dataRecordId}`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.deleteDataRecord`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataRecordId` | path | string | **Yes** |
+
+**Response**
+
+```json
+{
+  "success": true
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-records/{dataRecordId}`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.getDataRecord`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataRecordId` | path | string | **Yes** |
+
+**Response**
+
+```json
+{
+  "id": "string",
+  "values": {}
+}
+```
+
+---
+
+### PATCH `/data-engine/v2.0/data-records/{dataRecordId}`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.patchDataRecord`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataRecordId` | path | string | **Yes** |
+
+**Request Body**
+
+```json
+{
+  "values": {}
+}
+```
+
+**Response**
+
+```json
+{
+  "id": "string",
+  "values": {}
+}
+```
+
+---
+
+### PUT `/data-engine/v2.0/data-records/{dataRecordId}`
+
+**Overview**
+
+`[DataRecord] DataEngine.v2.0.putDataRecord`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataRecordId` | path | string | **Yes** |
+
+**Request Body**
+
+```json
+{
+  "values": {}
+}
+```
+
+**Response**
+
+```json
+{
+  "id": "string",
+  "values": {}
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-record-collection`
+
+**Overview**
+
+`[DataRecordCollection] DataEngine.v2.0.getDataDefinitionDataRecordCollection`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | **Yes** |
+
+**Response**
+
+```json
+{
+  "id": "string",
+  "name": "string"
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-record-collections`
+
+**Overview**
+
+`[DataRecordCollection] DataEngine.v2.0.getDataDefinitionDataRecordCollectionsPage`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | **Yes** |
+| `keywords` | query | string | No |
+| `page` | query | string | No |
+| `pageSize` | query | string | No |
+
+**Response**
+
+```json
+{
+  "items": [],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 0
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-record-collections`
+
+**Overview**
+
+`[DataRecordCollection] DataEngine.v2.0.postDataDefinitionDataRecordCollection`
+
+**Parameters**
+
+| Name | Location | Type | Required |
+| :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | **Yes** |
+
+**Request Body**
+
+```json
+{
+  "name": "string"
+}
+```
+
+**Response**
+
+```json
+{
+  "id": "string",
+  "name": "string"
+}
+```

@@ -1,0 +1,44 @@
+---
+id: "011-customer-contract-govcon-360-internal-liferay"
+title: "Customer Contract"
+sidebar_position: 2
+description: "Manage customer contracts and seat allocations in GovCon360."
+---
+
+Manage customer contracts and seat allocations within your organization by navigating to **Accounts** → **Customer Content** → **Customer Contract**.
+
+![Customer Contract](/img/admin/011-customer-contract-govcon-360-internal-liferay-screenshot.png)
+
+## Add Customer Contract
+
+Use the contract creation modal to define new customer agreements, seat limits, and billing details.
+
+1. Click the **+ Add Customer Contract** button to open the modal.
+2. Select the organization from the **Recipient Name** dropdown field.
+3. Choose the agreement timeline using the **Start Date** and **End Date** fields.
+4. Enter the number of allocated seats in the **Committed Seats** field.
+5. Select the payment schedule from the **Billing Frequency** dropdown.
+6. Optional: Check the box for **Free trial (customer does not pay invoices)** if applicable.
+7. Configure financial terms using the pricing fields:
+   - **Committed Price / Seat / Quarter**
+   - **Extra Price / Seat / Quarter**
+   - **Prorated Price / Seat / Day**
+8. Click **Add Customer Contract** to save, or **Cancel** to discard your entries.
+
+## Contract fields reference
+
+| Field | Type | Required | Notes |
+| :--- | :--- | :--- | :--- |
+| **Recipient Name** | Select | No | The customer organization associated with the contract. |
+| **Start Date** | Date | No | The date the contract takes effect. |
+| **End Date** | Date | No | The expiration date of the contract. |
+| **Committed Seats** | Number | No | The total number of committed seats. |
+| **Billing Frequency** | Select | No | Frequency of invoicing (e.g., Quarterly). |
+| **Free trial** | Checkbox | No | Toggles whether invoices are generated for the contract. |
+| **Committed Price / Seat / Quarter** | Currency (USD) | No | Standard rate per committed seat per quarter. |
+| **Extra Price / Seat / Quarter** | Currency (USD) | No | Rate applied to seats exceeding the committed amount. |
+| **Prorated Price / Seat / Day** | Currency (USD) | No | Daily rate used for mid-term adjustments. |
+
+## Manage existing contracts
+
+Review and search existing agreements using the **Search by recipient name** filter above the main table. Each row displays key information including the **Recipient Name**, **Start Date**, **End Date**, and contract **Status**, with options to view or edit details.

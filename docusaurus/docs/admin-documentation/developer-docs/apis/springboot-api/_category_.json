@@ -1,0 +1,9 @@
+{
+  "label": "Spring Boot API",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "title": "Spring Boot API",
+    "description": "springboot-api reference."
+  }
+}

@@ -1,0 +1,99 @@
+---
+id: "captcha"
+title: "Captcha"
+sidebar_position: 5
+description: "API reference documentation for Captcha endpoints."
+---
+
+| Property | Value |
+| :--- | :--- |
+| Endpoints | 2 |
+| Base path | `https://platform.nlproducts.net/o` |
+
+## Architecture
+
+```mermaid
+flowchart TD
+    subgraph Caller
+        Client[Client Application]
+    end
+
+    subgraph Gateway_Auth["Gateway / Auth"]
+        GW["API Gateway / Auth Layer"]
+    end
+
+    subgraph APIs_Services["APIs & Services"]
+        Ctrl[Captcha Controller]
+    end
+
+    subgraph Data_stores["Data stores"]
+        DB[("Captcha Database")]
+    end
+
+    Client -->|HTTPS Request + Auth| GW
+    GW -->|Validate Token| Ctrl
+    Ctrl -->|Reads / Writes| DB
+    DB -->|Returns Data| Ctrl
+    Ctrl -->|Response| GW
+    GW -->|HTTPS Response| Client
+```
+
+## Configuration & Data
+
+- Authentication (`auth_required`): Required (`true`) for all endpoints.
+- Schemas: `Captcha.v1.0.Captcha`
+
+## Endpoints
+
+### GET /captcha/v1.0/captcha/challenge
+
+`[Captcha] Captcha.v1.0.getCaptchaChallenge`
+
+Retrieves a new captcha challenge.
+
+**Parameters**
+
+| Name | Type | In | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| Authorization | string | header | true | Bearer token for authentication |
+
+**Response Example**
+
+```json
+{
+  "challengeId": "string",
+  "image": "string"
+}
+```
+
+---
+
+### POST /captcha/v1.0/captcha/response
+
+`[Captcha] Captcha.v1.0.postCaptchaResponse`
+
+Submits a response to a captcha challenge.
+
+**Parameters**
+
+| Name | Type | In | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| Authorization | string | header | true | Bearer token for authentication |
+
+**Request Body Example**
+
+```json
+{
+  "challengeId": "string",
+  "solution": "string"
+}
+```
+
+**Response Example**
+
+```json
+{
+  "success": true,
+  "message": "Captcha validated successfully"
+}
+```

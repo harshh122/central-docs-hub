@@ -1,0 +1,263 @@
+---
+id: "changetrackingrest-part-3"
+title: "ChangeTrackingRest (Part 3 of 3)"
+sidebar_position: 8
+description: "API reference documentation for ChangeTrackingRest endpoints (Part 3 of 3)."
+---
+
+[Part 1](./changetrackingrest.mdx)
+
+## Endpoints
+
+### GET `/change-tracking-rest/v1.0/ct-remotes`
+
+Retrieve a page of change tracking remote connections (`ResponseEntity<ChangeTrackingRest.v1.0.PageCTRemote>`).
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `page` | query | string | No | Page number to retrieve |
+| `pageSize` | query | string | No | Number of items per page |
+| `search` | query | string | No | Search query string |
+| `sort` | query | string | No | Sorting criteria |
+
+**Response (200 OK)**
+
+```json
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Production Remote",
+      "url": "https://remote.nlproducts.net/o"
+    }
+  ],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 1
+}
+```
+
+---
+
+### POST `/change-tracking-rest/v1.0/ct-remotes`
+
+Create a new change tracking remote configuration (`ResponseEntity<ChangeTrackingRest.v1.0.CTRemote>`).
+
+**Request Body**
+
+```json
+{
+  "name": "Staging Remote",
+  "url": "https://staging.nlproducts.net/o"
+}
+```
+
+**Response (201 Created)**
+
+```json
+{
+  "id": 2,
+  "name": "Staging Remote",
+  "url": "https://staging.nlproducts.net/o"
+}
+```
+
+---
+
+### DELETE `/change-tracking-rest/v1.0/ct-remotes/batch`
+
+Perform a batch deletion of change tracking remote records (`ResponseEntity<Object>`).
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `callbackURL` | query | string | No | Optional webhook callback URL |
+
+**Request Body**
+
+```json
+{
+  "ids": [1, 2]
+}
+```
+
+**Response (200 OK)**
+
+```json
+{
+  "status": "ACCEPTED"
+}
+```
+
+---
+
+### POST `/change-tracking-rest/v1.0/ct-remotes/batch`
+
+Perform a batch creation of change tracking remote records (`ResponseEntity<Object>`).
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `callbackURL` | query | string | No | Optional webhook callback URL |
+
+**Request Body**
+
+```json
+[
+  {
+    "name": "Remote A",
+    "url": "https://a.nlproducts.net/o"
+  }
+]
+```
+
+**Response (200 OK)**
+
+```json
+{
+  "status": "ACCEPTED"
+}
+```
+
+---
+
+### PUT `/change-tracking-rest/v1.0/ct-remotes/batch`
+
+Perform a batch update of change tracking remote records (`ResponseEntity<Object>`).
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `callbackURL` | query | string | No | Optional webhook callback URL |
+
+**Request Body**
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Updated Remote A",
+    "url": "https://a-updated.nlproducts.net/o"
+  }
+]
+```
+
+**Response (200 OK)**
+
+```json
+{
+  "status": "ACCEPTED"
+}
+```
+
+---
+
+### POST `/change-tracking-rest/v1.0/ct-remotes/export-batch`
+
+Trigger an asynchronous batch export of change tracking remotes (`ResponseEntity<Object>`).
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `search` | query | string | No | Search filter criteria |
+| `sort` | query | string | No | Sorting criteria |
+| `callbackURL` | query | string | No | Optional webhook callback URL |
+| `contentType` | query | string | No | Export content type (e.g., json, csv) |
+| `fieldNames` | query | string | No | Specific fields to include in export |
+
+**Response (200 OK)**
+
+```json
+{
+  "status": "ACCEPTED"
+}
+```
+
+---
+
+### DELETE `/change-tracking-rest/v1.0/ct-remotes/{id}`
+
+Delete a specific change tracking remote configuration by ID (`ResponseEntity<Object>`).
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | path | string | Yes | Unique identifier of the remote record |
+
+**Response (204 No Content)**
+
+```json
+{}
+```
+
+---
+
+### GET `/change-tracking-rest/v1.0/ct-remotes/{id}`
+
+Retrieve a specific change tracking remote configuration by ID (`ResponseEntity<ChangeTrackingRest.v1.0.CTRemote>`).
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | path | string | Yes | Unique identifier of the remote record |
+
+**Response (200 OK)**
+
+```json
+{
+  "id": 1,
+  "name": "Production Remote",
+  "url": "https://remote.nlproducts.net/o"
+}
+```
+
+---
+
+### PATCH `/change-tracking-rest/v1.0/ct-remotes/{id}`
+
+Partially update a specific change tracking remote configuration by ID (`ResponseEntity<ChangeTrackingRest.v1.0.CTRemote>`).
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | path | string | Yes | Unique identifier of the remote record |
+
+**Request Body**
+
+```json
+{
+  "name": "Renamed Remote"
+}
+```
+
+**Response (200 OK)**
+
+```json
+{
+  "id": 1,
+  "name": "Renamed Remote",
+  "url": "https://remote.nlproducts.net/o"
+}
+```
+
+---
+
+### PUT `/change-tracking-rest/v1.0/ct-remotes/{id}`
+
+Fully update a specific change tracking remote configuration by ID (`ResponseEntity<ChangeTrackingRest.v1.0.CTRemote>`).
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | path | string | Yes | Unique identifier of the remote record |
+
+**Request Body**
+
+```json
+{
+  "name": "Production Remote Fully Updated",
+  "url": "https://remote-new.nlproducts.net/o"
+}
+```
+
+**Response (200 OK)**
+
+```json
+{
+  "id": 1,
+  "name": "Production Remote Fully Updated",
+  "url": "https://remote-new.nlproducts.net/o"
+}
+```

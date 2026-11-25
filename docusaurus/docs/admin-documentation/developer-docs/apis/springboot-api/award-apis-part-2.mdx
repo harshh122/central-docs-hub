@@ -1,0 +1,237 @@
+---
+id: "award-apis-part-2"
+title: "Award APIs (Part 2 of 2)"
+sidebar_position: 3
+description: "Reference documentation for Award APIs (Part 2 of 2)."
+---
+
+[Part 1](./award-apis.mdx)
+
+## Endpoints
+
+### GET `/api/award/v1/federal-account-balances`
+
+Get federal account balances
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `type` | query | string | No | Type (e.g., AWARD_ID) |
+| `value` | query | string | **Yes** | Award ID or identifier value |
+| `page` | query | integer(int32) | No | - |
+| `limit` | query | integer(int32) | No | - |
+
+```json
+{
+  "content": [],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 10
+  },
+  "totalElements": 0
+}
+```
+
+---
+
+### GET `/api/award/v1/by-generated-unique-award-id`
+
+Get award detail by generated unique award id
+
+Fetch full award details for a specific PIID (Procurement Instrument Identifier).
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `generated-unique-award-id` | query | string | **Yes** | Generated unique award id |
+
+:::warning[Error Codes]
+- `400: Missing or invalid PIID`
+- `500: Server error`
+:::
+
+```json
+{
+  "status": "success",
+  "data": {
+    "generatedUniqueAwardId": "CONT_AWD_...",
+    "piid": "ABC123456",
+    "awardAmount": 500000.00
+  }
+}
+```
+
+---
+
+### GET `/api/award/v1/by-contract-number-and-award-id`
+
+Get award detail by contract number and award id
+
+Fetch full award details for a specific contract number and award id.
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `contract-number` | query | string | **Yes** | Contract Number |
+| `award-id` | query | string | **Yes** | Award Id |
+
+:::warning[Error Codes]
+- `400: Missing or invalid PIID`
+- `500: Server error`
+:::
+
+```json
+{
+  "status": "success",
+  "data": {
+    "contractNumber": "GS-35F-0000A",
+    "awardId": "12345",
+    "description": "Contract details"
+  }
+}
+```
+
+---
+
+### GET `/api/award/v1/by-award-id`
+
+Get award detail by PIID
+
+Fetch full award details for a specific PIID (Procurement Instrument Identifier).
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `award-id` | query | string | **Yes** | Award Id |
+
+:::warning[Error Codes]
+- `400: Missing or invalid PIID`
+- `500: Server error`
+:::
+
+```json
+{
+  "content": [],
+  "totalElements": 0
+}
+```
+
+---
+
+### GET `/api/award/v1/award-transaction-history`
+
+Get award transactions by contract number
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `award_id` | query | string | **Yes** | Contract Number |
+| `page` | query | integer(int32) | No | - |
+| `limit` | query | integer(int32) | No | - |
+
+```json
+{
+  "content": [],
+  "totalElements": 0
+}
+```
+
+---
+
+### GET `/api/award/v1/award-amount`
+
+Get federal account balances
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `generated_unique_award_id` | query | string | **Yes** | Type (e.g., Generated Unique Award Id) |
+
+```json
+{
+  "status": "success",
+  "data": {
+    "generatedUniqueAwardId": "CONT_AWD_...",
+    "totalObligatedAmount": 150000.00
+  }
+}
+```
+
+---
+
+### GET `/api/award/v1/agency-vendor-summary`
+
+Get vendor-wise obligation summary for an agency (PG)
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `awarding_org_key` | query | integer(int32) | No | Awarding Agency Org Key |
+| `funding_org_key` | query | integer(int32) | No | Funding Agency Org Key |
+| `level` | query | integer(int32) | No | - |
+| `page` | query | integer(int32) | No | - |
+| `limit` | query | integer(int32) | No | - |
+
+```json
+{
+  "content": [],
+  "totalElements": 0
+}
+```
+
+---
+
+### GET `/api/award/v1/agency-summary`
+
+Get agency summary for a recipient (PG)
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `uei` | query | string | **Yes** | Recipient UEI |
+| `page` | query | integer(int32) | No | - |
+| `limit` | query | integer(int32) | No | - |
+
+```json
+{
+  "content": [],
+  "totalElements": 0
+}
+```
+
+---
+
+### GET `/api/award/v1/agency-monthly-obligation`
+
+Get monthly obligation (PG) by agency org key
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `org_key` | query | integer(int64) | **Yes** | - |
+| `agency_type` | query | string | **Yes** | - |
+| `agency_tier` | query | string | **Yes** | - |
+| `year_group` | query | string | **Yes** | - |
+
+```json
+{
+  "status": "success",
+  "data": {
+    "orgKey": 12345,
+    "monthlyObligations": []
+  }
+}
+```
+
+---
+
+### GET `/api/award/v1/agency-category-obligation`
+
+Get category obligation (PG) by agency org key
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `org_key` | query | integer(int64) | **Yes** | - |
+| `agency_type` | query | string | **Yes** | - |
+| `agency_tier` | query | string | **Yes** | - |
+
+```json
+{
+  "status": "success",
+  "data": {
+    "orgKey": 12345,
+    "categoryObligations": []
+  }
+}
+```

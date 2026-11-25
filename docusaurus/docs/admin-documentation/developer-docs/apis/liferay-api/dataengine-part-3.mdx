@@ -1,0 +1,372 @@
+---
+id: "dataengine-part-3"
+title: "DataEngine (Part 3 of 5)"
+sidebar_position: 11
+description: "DataEngine Global REST API documentation Part 3 covering layouts, list views, and record endpoints."
+---
+
+[Part 1](./dataengine.mdx)
+
+## Endpoints
+
+### POST `/data-engine/v2.0/data-layouts/{dataLayoutId}/context`
+
+`[DataLayout] DataEngine.v2.0.postDataLayoutContext`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataLayoutId` | path | string | Yes | Unique identifier of the data layout |
+
+**Request**
+
+```json
+{
+  "context": "string"
+}
+```
+
+**Response**
+
+```json
+{
+  "status": "success"
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/sites/{siteId}/data-layouts/by-content-type/{contentType}/by-data-layout-key/{dataLayoutKey}`
+
+`[DataLayout] DataEngine.v2.0.getSiteDataLayoutByContentTypeByDataLayoutKey`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `siteId` | path | string | Yes | Unique identifier of the site |
+| `contentType` | path | string | Yes | Content type associated with the layout |
+| `dataLayoutKey` | path | string | Yes | Unique key of the data layout |
+
+**Response**
+
+```json
+{
+  "id": "string",
+  "key": "string",
+  "name": "string"
+}
+```
+
+---
+
+### DELETE `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-list-views`
+
+`[DataListView] DataEngine.v2.0.deleteDataDefinitionDataListView`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Unique identifier of the data definition |
+
+**Response**
+
+```json
+{
+  "success": true
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-list-views`
+
+`[DataListView] DataEngine.v2.0.getDataDefinitionDataListViewsPage`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Unique identifier of the data definition |
+| `keywords` | query | string | No | Search keywords |
+| `page` | query | string | No | Page number |
+| `pageSize` | query | string | No | Number of items per page |
+| `sort` | query | string | No | Sorting criteria |
+
+**Response**
+
+```json
+{
+  "items": [],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 0
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-list-views`
+
+`[DataListView] DataEngine.v2.0.postDataDefinitionDataListView`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Unique identifier of the data definition |
+
+**Request**
+
+```json
+{
+  "name": "string"
+}
+```
+
+**Response**
+
+```json
+{
+  "id": "string",
+  "name": "string"
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-list-views/batch`
+
+`[DataListView] DataEngine.v2.0.postDataDefinitionDataListViewBatch`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Unique identifier of the data definition |
+| `callbackURL` | query | string | No | Webhook callback URL for batch completion |
+
+**Request**
+
+```json
+{
+  "items": []
+}
+```
+
+**Response**
+
+```json
+{
+  "status": "accepted"
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-list-views/export-batch`
+
+`[DataListView] DataEngine.v2.0.postDataDefinitionDataListViewsPageExportBatch`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Unique identifier of the data definition |
+| `keywords` | query | string | No | Search keywords |
+| `sort` | query | string | No | Sorting criteria |
+| `callbackURL` | query | string | No | Webhook callback URL |
+| `contentType` | query | string | No | Filter by content type |
+| `fieldNames` | query | string | No | Specific fields to export |
+
+**Response**
+
+```json
+{
+  "status": "processing"
+}
+```
+
+---
+
+### DELETE /data-engine/v2.0/data-list-views/batch
+
+`[DataListView] DataEngine.v2.0.deleteDataListViewBatch`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `callbackURL` | query | string | No | Webhook callback URL |
+
+**Request**
+
+```json
+{
+  "ids": []
+}
+```
+
+**Response**
+
+```json
+{
+  "status": "accepted"
+}
+```
+
+---
+
+### PUT /data-engine/v2.0/data-list-views/batch
+
+`[DataListView] DataEngine.v2.0.putDataListViewBatch`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `callbackURL` | query | string | No | Webhook callback URL |
+
+**Request**
+
+```json
+{
+  "items": []
+}
+```
+
+**Response**
+
+```json
+{
+  "status": "accepted"
+}
+```
+
+---
+
+### DELETE `/data-engine/v2.0/data-list-views/{dataListViewId}`
+
+`[DataListView] DataEngine.v2.0.deleteDataListView`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataListViewId` | path | string | Yes | Unique identifier of the data list view |
+
+**Response**
+
+```json
+{
+  "success": true
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-list-views/{dataListViewId}`
+
+`[DataListView] DataEngine.v2.0.getDataListView`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataListViewId` | path | string | Yes | Unique identifier of the data list view |
+
+**Response**
+
+```json
+{
+  "id": "string",
+  "name": "string"
+}
+```
+
+---
+
+### PUT `/data-engine/v2.0/data-list-views/{dataListViewId}`
+
+`[DataListView] DataEngine.v2.0.putDataListView`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataListViewId` | path | string | Yes | Unique identifier of the data list view |
+
+**Request**
+
+```json
+{
+  "name": "string"
+}
+```
+
+**Response**
+
+```json
+{
+  "id": "string",
+  "name": "string"
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-records`
+
+`[DataRecord] DataEngine.v2.0.getDataDefinitionDataRecordsPage`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Unique identifier of the data definition |
+| `dataListViewId` | query | string | No | Filter by data list view ID |
+| `keywords` | query | string | No | Search keywords |
+| `page` | query | string | No | Page number |
+| `pageSize` | query | string | No | Page size |
+| `sort` | query | string | No | Sorting criteria |
+
+**Response**
+
+```json
+{
+  "items": [],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 0
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-records`
+
+`[DataRecord] DataEngine.v2.0.postDataDefinitionDataRecord`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Unique identifier of the data definition |
+
+**Request**
+
+```json
+{
+  "values": {}
+}
+```
+
+**Response**
+
+```json
+{
+  "id": "string",
+  "values": {}
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-records/batch`
+
+`[DataRecord] DataEngine.v2.0.postDataDefinitionDataRecordBatch`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Unique identifier of the data definition |
+| `callbackURL` | query | string | No | Webhook callback URL for batch completion |
+
+**Request**
+
+```json
+{
+  "items": []
+}
+```
+
+**Response**
+
+```json
+{
+  "status": "accepted"
+}
+```

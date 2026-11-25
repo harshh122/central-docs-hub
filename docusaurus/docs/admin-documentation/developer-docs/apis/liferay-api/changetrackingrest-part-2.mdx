@@ -1,0 +1,385 @@
+---
+id: "changetrackingrest-part-2"
+title: "ChangeTrackingRest (Part 2 of 3)"
+sidebar_position: 7
+description: "API reference for ChangeTrackingRest endpoints (Part 2 of 3)."
+---
+
+[Part 1](./changetrackingrest.mdx)
+
+## Endpoints
+
+### DELETE `/change-tracking-rest/v1.0/ct-collections/{ctCollectionId}/batch`
+
+[CTCollection] ChangeTrackingRest.v1.0.deleteCTCollectionBatch
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctCollectionId` | path | `string` | **Yes** | Identifier for the change tracking collection. |
+| `callbackURL` | query | `string` | No | Optional callback URL for batch completion notification. |
+
+#### Request Example
+
+```json
+{
+  "items": []
+}
+```
+
+#### Response Example
+
+```json
+{
+  "status": "ACCEPTED",
+  "message": "Batch delete initiated"
+}
+```
+
+---
+
+### PUT `/change-tracking-rest/v1.0/ct-collections/{ctCollectionId}/batch`
+
+[CTCollection] ChangeTrackingRest.v1.0.putCTCollectionBatch
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctCollectionId` | path | `string` | **Yes** | Identifier for the change tracking collection. |
+| `callbackURL` | query | `string` | No | Optional callback URL for batch completion notification. |
+
+#### Request Example
+
+```json
+{
+  "id": "string",
+  "name": "string"
+}
+```
+
+#### Response Example
+
+```json
+{
+  "status": "OK",
+  "message": "Batch update completed"
+}
+```
+
+---
+
+### POST `/change-tracking-rest/v1.0/ct-collections/{ctCollectionId}/checkout`
+
+[CTCollection] ChangeTrackingRest.v1.0.postCTCollectionCheckout
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctCollectionId` | path | `string` | **Yes** | Identifier for the change tracking collection. |
+
+#### Response Example
+
+```json
+{
+  "id": "string",
+  "status": "CHECKED_OUT"
+}
+```
+
+---
+
+### POST `/change-tracking-rest/v1.0/ct-collections/{ctCollectionId}/publish`
+
+[CTCollection] ChangeTrackingRest.v1.0.postCTCollectionPublish
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctCollectionId` | path | `string` | **Yes** | Identifier for the change tracking collection. |
+
+#### Response Example
+
+```json
+{
+  "id": "string",
+  "status": "PUBLISHED"
+}
+```
+
+---
+
+### POST `/change-tracking-rest/v1.0/ct-collections/{ctCollectionId}/schedule-publish`
+
+[CTCollection] ChangeTrackingRest.v1.0.postCTCollectionSchedulePublish
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctCollectionId` | path | `string` | **Yes** | Identifier for the change tracking collection. |
+| `publishDate` | query | `string` | No | Scheduled date and time for publication. |
+
+#### Response Example
+
+```json
+{
+  "id": "string",
+  "status": "SCHEDULED"
+}
+```
+
+---
+
+### GET `/change-tracking-rest/v1.0/ct-collections/{ctCollectionId}/ct-entries`
+
+[CTEntry] ChangeTrackingRest.v1.0.getCtCollectionCTEntriesPage
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctCollectionId` | path | `string` | **Yes** | Identifier for the change tracking collection. |
+| `filter` | query | `string` | No | Filter expression for the entries. |
+| `page` | query | `string` | No | Page number for pagination. |
+| `pageSize` | query | `string` | No | Number of items per page. |
+| `search` | query | `string` | No | Search query string. |
+| `showHideable` | query | `string` | No | Flag to show hideable entries. |
+| `sort` | query | `string` | No | Sorting criteria. |
+
+#### Response Example
+
+```json
+{
+  "items": [],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 0
+}
+```
+
+---
+
+### GET `/change-tracking-rest/v1.0/ct-collections/{ctCollectionId}/ct-entries/by-model-class-name-id/{modelClassNameId}/by-model-class-pk/{modelClassPK}`
+
+[CTEntry] ChangeTrackingRest.v1.0.getCtCollectionCTEntryByModelClassNameByModelClassPkModelClassPK
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctCollectionId` | path | `string` | **Yes** | Identifier for the change tracking collection. |
+| `modelClassNameId` | path | `string` | **Yes** | Model class name ID. |
+| `modelClassPK` | path | `string` | **Yes** | Model class primary key. |
+
+#### Response Example
+
+```json
+{
+  "id": "string",
+  "modelClassNameId": "string",
+  "modelClassPK": "string"
+}
+```
+
+---
+
+### GET /change-tracking-rest/v1.0/ct-entries/history
+
+[CTEntry] ChangeTrackingRest.v1.0.getCTEntriesHistoryPage
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `classNameId` | query | `string` | No | Filter by class name ID. |
+| `classPK` | query | `string` | No | Filter by class primary key. |
+| `filter` | query | `string` | No | Filter expression. |
+| `page` | query | `string` | No | Page number. |
+| `pageSize` | query | `string` | No | Page size. |
+| `search` | query | `string` | No | Search term. |
+| `siteId` | query | `string` | No | Site identifier. |
+| `sort` | query | `string` | No | Sort options. |
+
+#### Response Example
+
+```json
+{
+  "items": [],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 0
+}
+```
+
+---
+
+### GET `/change-tracking-rest/v1.0/ct-entries/{ctEntryId}`
+
+[CTEntry] ChangeTrackingRest.v1.0.getCTEntry
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctEntryId` | path | `string` | **Yes** | Identifier for the change tracking entry. |
+
+#### Response Example
+
+```json
+{
+  "id": "string",
+  "name": "string"
+}
+```
+
+---
+
+### GET /change-tracking-rest/v1.0/ct-processes
+
+[CTProcess] ChangeTrackingRest.v1.0.getCTProcessesPage
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `filter` | query | `string` | No | Filter expression. |
+| `page` | query | `string` | No | Page number. |
+| `pageSize` | query | `string` | No | Page size. |
+| `search` | query | `string` | No | Search query. |
+| `sort` | query | `string` | No | Sort configuration. |
+| `status` | query | `string` | No | Process status filter. |
+
+#### Response Example
+
+```json
+{
+  "items": [],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 0
+}
+```
+
+---
+
+### POST /change-tracking-rest/v1.0/ct-processes/export-batch
+
+[CTProcess] ChangeTrackingRest.v1.0.postCTProcessesPageExportBatch
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `filter` | query | `string` | No | Filter expression. |
+| `search` | query | `string` | No | Search query. |
+| `sort` | query | `string` | No | Sort configuration. |
+| `status` | query | `string` | No | Process status filter. |
+| `callbackURL` | query | `string` | No | Callback URL for export completion. |
+| `contentType` | query | `string` | No | Desired content type for export. |
+| `fieldNames` | query | `string` | No | Specific field names to include. |
+
+#### Response Example
+
+```json
+{
+  "status": "ACCEPTED",
+  "message": "Export batch initiated"
+}
+```
+
+---
+
+### DELETE `/change-tracking-rest/v1.0/ct-processes/{ctProcessId}`
+
+[CTProcess] ChangeTrackingRest.v1.0.deleteCTProcess
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctProcessId` | path | `string` | **Yes** | Identifier for the change tracking process. |
+
+#### Response Example
+
+```json
+{
+  "status": "DELETED"
+}
+```
+
+---
+
+### GET `/change-tracking-rest/v1.0/ct-processes/{ctProcessId}`
+
+[CTProcess] ChangeTrackingRest.v1.0.getCTProcess
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctProcessId` | path | `string` | **Yes** | Identifier for the change tracking process. |
+
+#### Response Example
+
+```json
+{
+  "id": "string",
+  "status": "COMPLETED"
+}
+```
+
+---
+
+### DELETE `/change-tracking-rest/v1.0/ct-processes/{ctProcessId}/batch`
+
+[CTProcess] ChangeTrackingRest.v1.0.deleteCTProcessBatch
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctProcessId` | path | `string` | **Yes** | Identifier for the change tracking process. |
+| `callbackURL` | query | `string` | No | Callback URL for batch completion. |
+
+#### Request Example
+
+```json
+{
+  "items": []
+}
+```
+
+#### Response Example
+
+```json
+{
+  "status": "ACCEPTED",
+  "message": "Process batch delete initiated"
+}
+```
+
+---
+
+### POST `/change-tracking-rest/v1.0/ct-processes/{ctProcessId}/revert`
+
+[CTProcess] ChangeTrackingRest.v1.0.postCTProcessRevert
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `ctProcessId` | path | `string` | **Yes** | Identifier for the change tracking process. |
+| `description` | query | `string` | No | Description for the revert operation. |
+| `name` | query | `string` | No | Name for the revert operation. |
+
+#### Response Example
+
+```json
+{
+  "status": "REVERTED"
+}
+```

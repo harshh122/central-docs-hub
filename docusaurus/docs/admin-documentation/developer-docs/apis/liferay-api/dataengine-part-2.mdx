@@ -1,0 +1,340 @@
+---
+id: "dataengine-part-2"
+title: "DataEngine (Part 2 of 5)"
+sidebar_position: 10
+description: "DataEngine Global REST API reference for data definitions and layouts, Part 2."
+---
+
+[Part 1](./dataengine.mdx)
+
+## Endpoints
+
+### DELETE `/data-engine/v2.0/sites/{siteId}/data-definitions/by-content-type/{contentType}/by-external-reference-code/{externalReferenceCode}`
+
+`[DataDefinition] DataEngine.v2.0.deleteSiteDataDefinitionByContentTypeByExternalReferenceCode`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `siteId` | path | string | Yes | Site identifier |
+| `contentType` | path | string | Yes | Content type |
+| `externalReferenceCode` | path | string | Yes | External reference code |
+
+```json
+// Response (200 OK)
+{
+  "status": "success"
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/sites/{siteId}/data-definitions/by-content-type/{contentType}/by-external-reference-code/{externalReferenceCode}`
+
+`[DataDefinition] DataEngine.v2.0.getSiteDataDefinitionByContentTypeByExternalReferenceCode`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `siteId` | path | string | Yes | Site identifier |
+| `contentType` | path | string | Yes | Content type |
+| `externalReferenceCode` | path | string | Yes | External reference code |
+
+```json
+// Response (`DataEngine.v2.0.DataDefinition`)
+{
+  "id": "string",
+  "name": "string",
+  "externalReferenceCode": "string"
+}
+```
+
+---
+
+### PUT `/data-engine/v2.0/sites/{siteId}/data-definitions/by-content-type/{contentType}/by-external-reference-code/{externalReferenceCode}`
+
+`[DataDefinition] DataEngine.v2.0.putSiteDataDefinitionByContentTypeByExternalReferenceCode`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `siteId` | path | string | Yes | Site identifier |
+| `contentType` | path | string | Yes | Content type |
+| `externalReferenceCode` | path | string | Yes | External reference code |
+
+```json
+// Request (`DataEngine.v2.0.DataDefinition`)
+{
+  "name": "string"
+}
+```
+
+```json
+// Response (`DataEngine.v2.0.DataDefinition`)
+{
+  "id": "string",
+  "name": "string",
+  "externalReferenceCode": "string"
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-definition-field-links`
+
+`[DataDefinitionFieldLink] DataEngine.v2.0.getDataDefinitionDataDefinitionFieldLinksPage`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Data definition identifier |
+| `fieldName` | query | string | No | Filter by field name |
+
+```json
+// Response (`DataEngine.v2.0.PageDataDefinitionFieldLink`)
+{
+  "items": [],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 0
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-definition-field-links/export-batch`
+
+`[DataDefinitionFieldLink] DataEngine.v2.0.postDataDefinitionDataDefinitionFieldLinksPageExportBatch`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Data definition identifier |
+| `fieldName` | query | string | No | Filter by field name |
+| `callbackURL` | query | string | No | Callback URL for batch results |
+| `contentType` | query | string | No | Content type |
+| `fieldNames` | query | string | No | Comma-separated field names |
+
+```json
+// Response (202 Accepted)
+{
+  "status": "Accepted",
+  "batchId": "string"
+}
+```
+
+---
+
+### DELETE `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-layouts`
+
+`[DataLayout] DataEngine.v2.0.deleteDataDefinitionDataLayout`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Data definition identifier |
+
+```json
+// Response (200 OK)
+{
+  "status": "success"
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-layouts`
+
+`[DataLayout] DataEngine.v2.0.getDataDefinitionDataLayoutsPage`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Data definition identifier |
+| `keywords` | query | string | No | Search keywords |
+| `page` | query | string | No | Page number |
+| `pageSize` | query | string | No | Page size |
+| `sort` | query | string | No | Sort criteria |
+
+```json
+// Response (`DataEngine.v2.0.PageDataLayout`)
+{
+  "items": [],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 0
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-layouts`
+
+`[DataLayout] DataEngine.v2.0.postDataDefinitionDataLayout`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Data definition identifier |
+
+```json
+// Request (`DataEngine.v2.0.DataLayout`)
+{
+  "name": "string"
+}
+```
+
+```json
+// Response (`DataEngine.v2.0.DataLayout`)
+{
+  "id": "string",
+  "name": "string"
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-layouts/batch`
+
+`[DataLayout] DataEngine.v2.0.postDataDefinitionDataLayoutBatch`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Data definition identifier |
+| `callbackURL` | query | string | No | Callback URL |
+
+```json
+// Request (`object`)
+{
+  "items": []
+}
+```
+
+```json
+// Response (202 Accepted)
+{
+  "status": "Accepted"
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-layouts/export-batch`
+
+`[DataLayout] DataEngine.v2.0.postDataDefinitionDataLayoutsPageExportBatch`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Data definition identifier |
+| `keywords` | query | string | No | Keywords filter |
+| `sort` | query | string | No | Sort criteria |
+| `callbackURL` | query | string | No | Callback URL |
+| `contentType` | query | string | No | Content type |
+| `fieldNames` | query | string | No | Field names |
+
+```json
+// Response (202 Accepted)
+{
+  "status": "Accepted"
+}
+```
+
+---
+
+### DELETE `/data-engine/v2.0/data-layouts/batch`
+
+`[DataLayout] DataEngine.v2.0.deleteDataLayoutBatch`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `callbackURL` | query | string | No | Callback URL |
+
+```json
+// Request (`object`)
+{
+  "ids": []
+}
+```
+
+```json
+// Response (202 Accepted)
+{
+  "status": "Accepted"
+}
+```
+
+---
+
+### PUT `/data-engine/v2.0/data-layouts/batch`
+
+`[DataLayout] DataEngine.v2.0.putDataLayoutBatch`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `callbackURL` | query | string | No | Callback URL |
+
+```json
+// Request (`object`)
+{
+  "items": []
+}
+```
+
+```json
+// Response (202 Accepted)
+{
+  "status": "Accepted"
+}
+```
+
+---
+
+### DELETE `/data-engine/v2.0/data-layouts/{dataLayoutId}`
+
+`[DataLayout] DataEngine.v2.0.deleteDataLayout`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataLayoutId` | path | string | Yes | Data layout identifier |
+
+```json
+// Response (200 OK)
+{
+  "status": "success"
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-layouts/{dataLayoutId}`
+
+`[DataLayout] DataEngine.v2.0.getDataLayout`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataLayoutId` | path | string | Yes | Data layout identifier |
+
+```json
+// Response (`DataEngine.v2.0.DataLayout`)
+{
+  "id": "string",
+  "name": "string"
+}
+```
+
+---
+
+### PUT `/data-engine/v2.0/data-layouts/{dataLayoutId}`
+
+`[DataLayout] DataEngine.v2.0.putDataLayout`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataLayoutId` | path | string | Yes | Data layout identifier |
+
+```json
+// Request (`DataEngine.v2.0.DataLayout`)
+{
+  "name": "string"
+}
+```
+
+```json
+// Response (`DataEngine.v2.0.DataLayout`)
+{
+  "id": "string",
+  "name": "string"
+}
+```

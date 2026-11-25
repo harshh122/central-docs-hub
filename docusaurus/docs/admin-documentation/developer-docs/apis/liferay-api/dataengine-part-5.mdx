@@ -1,0 +1,268 @@
+---
+id: "dataengine-part-5"
+title: "DataEngine (Part 5 of 5)"
+sidebar_position: 13
+description: "Global REST API - OpenAPI DataEngine endpoints reference part 5."
+---
+
+[Part 1](./dataengine.mdx)
+
+## Endpoints
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-record-collections/batch`
+
+[DataRecordCollection] DataEngine.v2.0.postDataDefinitionDataRecordCollectionBatch
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Identifier for the data definition |
+| `callbackURL` | query | string | No | Optional callback URL |
+
+#### Request Body (`object`)
+
+```json
+{
+  "items": []
+}
+```
+
+#### Response Example (`application/json`)
+
+```json
+{
+  "status": "success",
+  "data": {}
+}
+```
+
+---
+
+### POST `/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-record-collections/export-batch`
+
+[DataRecordCollection] DataEngine.v2.0.postDataDefinitionDataRecordCollectionsPageExportBatch
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataDefinitionId` | path | string | Yes | Identifier for the data definition |
+| `keywords` | query | string | No | Search keywords |
+| `callbackURL` | query | string | No | Optional callback URL |
+| `contentType` | query | string | No | Content type format |
+| `fieldNames` | query | string | No | Specific field names to include |
+
+#### Response Example (`application/json`)
+
+```json
+{
+  "status": "processing",
+  "exportId": "string"
+}
+```
+
+---
+
+### DELETE `/data-engine/v2.0/data-record-collections/batch`
+
+[DataRecordCollection] DataEngine.v2.0.deleteDataRecordCollectionBatch
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `callbackURL` | query | string | No | Optional callback URL |
+
+#### Request Body (`object`)
+
+```json
+{
+  "ids": []
+}
+```
+
+#### Response Example (`application/json`)
+
+```json
+{
+  "status": "success"
+}
+```
+
+---
+
+### PUT `/data-engine/v2.0/data-record-collections/batch`
+
+[DataRecordCollection] DataEngine.v2.0.putDataRecordCollectionBatch
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `callbackURL` | query | string | No | Optional callback URL |
+
+#### Request Body (`object`)
+
+```json
+{
+  "items": []
+}
+```
+
+#### Response Example (`application/json`)
+
+```json
+{
+  "status": "success"
+}
+```
+
+---
+
+### DELETE `/data-engine/v2.0/data-record-collections/{dataRecordCollectionId}`
+
+[DataRecordCollection] DataEngine.v2.0.deleteDataRecordCollection
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataRecordCollectionId` | path | string | Yes | Unique identifier of the data record collection |
+
+#### Response Example (`application/json`)
+
+```json
+{
+  "success": true
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-record-collections/{dataRecordCollectionId}`
+
+[DataRecordCollection] DataEngine.v2.0.getDataRecordCollection
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataRecordCollectionId` | path | string | Yes | Unique identifier of the data record collection |
+
+#### Response Example (`DataEngine.v2.0.DataRecordCollection`)
+
+```json
+{
+  "id": "string",
+  "name": "string",
+  "dateCreated": "2023-01-01T00:00:00Z",
+  "dateModified": "2023-01-01T00:00:00Z"
+}
+```
+
+---
+
+### PUT `/data-engine/v2.0/data-record-collections/{dataRecordCollectionId}`
+
+[DataRecordCollection] DataEngine.v2.0.putDataRecordCollection
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataRecordCollectionId` | path | string | Yes | Unique identifier of the data record collection |
+
+#### Request Body (`DataEngine.v2.0.DataRecordCollection`)
+
+```json
+{
+  "name": "string"
+}
+```
+
+#### Response Example (`DataEngine.v2.0.DataRecordCollection`)
+
+```json
+{
+  "id": "string",
+  "name": "string"
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-record-collections/{dataRecordCollectionId}/permissions`
+
+[DataRecordCollection] DataEngine.v2.0.getDataRecordCollectionPermissionsPage
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataRecordCollectionId` | path | string | Yes | Unique identifier of the data record collection |
+| `roleNames` | query | string | No | Filter by role names |
+
+#### Response Example (`DataEngine.v2.0.PagePermission`)
+
+```json
+{
+  "items": [],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 0
+}
+```
+
+---
+
+### PUT `/data-engine/v2.0/data-record-collections/{dataRecordCollectionId}/permissions`
+
+[DataRecordCollection] DataEngine.v2.0.putDataRecordCollectionPermissionsPage
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataRecordCollectionId` | path | string | Yes | Unique identifier of the data record collection |
+
+#### Request Body (`array`)
+
+```json
+[
+  {
+    "roleName": "string",
+    "actionNames": []
+  }
+]
+```
+
+#### Response Example (`DataEngine.v2.0.PagePermission`)
+
+```json
+{
+  "items": [],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 0
+}
+```
+
+---
+
+### GET `/data-engine/v2.0/data-record-collections/{dataRecordCollectionId}/permissions/by-current-user`
+
+[DataRecordCollection] DataEngine.v2.0.getDataRecordCollectionPermissionByCurrentUser
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `dataRecordCollectionId` | path | string | Yes | Unique identifier of the data record collection |
+
+#### Response Example (`string`)
+
+```json
+"VIEW,EDIT"
+```
+
+---
+
+### GET `/data-engine/v2.0/sites/{siteId}/data-record-collections/by-data-record-collection-key/{dataRecordCollectionKey}`
+
+[DataRecordCollection] DataEngine.v2.0.getSiteDataRecordCollectionByDataRecordCollectionKey
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `siteId` | path | string | Yes | Site identifier |
+| `dataRecordCollectionKey` | path | string | Yes | Unique collection key |
+
+#### Response Example (`DataEngine.v2.0.DataRecordCollection`)
+
+```json
+{
+  "id": "string",
+  "key": "string",
+  "name": "string"
+}
+```

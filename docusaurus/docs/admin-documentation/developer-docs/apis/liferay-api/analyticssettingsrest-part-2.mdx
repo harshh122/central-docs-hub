@@ -1,0 +1,222 @@
+---
+id: "analyticssettingsrest-part-2"
+title: "AnalyticsSettingsRest (Part 2 of 2)"
+sidebar_position: 2
+description: "API reference for AnalyticsSettingsRest endpoints (Part 2 of 2)."
+---
+
+[Part 1](./analyticssettingsrest.mdx)
+
+## Endpoints
+
+### PATCH `/analytics-settings-rest/v1.0/fields/orders`
+
+`[Field] AnalyticsSettingsRest.v1.0.patchFieldOrder`
+
+| Property | Value |
+| :--- | :--- |
+| Auth Required | `true` |
+| Request Body | `array` |
+| Response | `application/json`, `application/xml` |
+
+```json
+[
+  {
+    "id": "string",
+    "name": "string"
+  }
+]
+```
+
+---
+
+### GET `/analytics-settings-rest/v1.0/fields/people`
+
+`[Field] AnalyticsSettingsRest.v1.0.getFieldsPeoplePage`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `keyword` | query | `string` | No | Search keyword |
+| `page` | query | `string` | No | Page number |
+| `pageSize` | query | `string` | No | Items per page |
+| `sort` | query | `string` | No | Sort criteria |
+
+| Property | Value |
+| :--- | :--- |
+| Auth Required | `true` |
+| Response Schema | `AnalyticsSettingsRest.v1.0.PageField` |
+
+```json
+{
+  "items": [
+    {
+      "id": "string",
+      "name": "string"
+    }
+  ],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 1
+}
+```
+
+---
+
+### PATCH `/analytics-settings-rest/v1.0/fields/people`
+
+`[Field] AnalyticsSettingsRest.v1.0.patchFieldPeople`
+
+| Property | Value |
+| :--- | :--- |
+| Auth Required | `true` |
+| Request Body | `array` |
+| Response | `application/json`, `application/xml` |
+
+```json
+[
+  {
+    "id": "string",
+    "name": "string"
+  }
+]
+```
+
+---
+
+### GET `/analytics-settings-rest/v1.0/fields/products`
+
+`[Field] AnalyticsSettingsRest.v1.0.getFieldsProductsPage`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `keyword` | query | `string` | No | Search keyword |
+| `page` | query | `string` | No | Page number |
+| `pageSize` | query | `string` | No | Items per page |
+| `sort` | query | `string` | No | Sort criteria |
+
+| Property | Value |
+| :--- | :--- |
+| Auth Required | `true` |
+| Response Schema | `AnalyticsSettingsRest.v1.0.PageField` |
+
+```json
+{
+  "items": [
+    {
+      "id": "string",
+      "name": "string"
+    }
+  ],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 1
+}
+```
+
+---
+
+### PATCH `/analytics-settings-rest/v1.0/fields/products`
+
+`[Field] AnalyticsSettingsRest.v1.0.patchFieldProduct`
+
+| Property | Value |
+| :--- | :--- |
+| Auth Required | `true` |
+| Request Body | `array` |
+| Response | `application/json`, `application/xml` |
+
+```json
+[
+  {
+    "id": "string",
+    "name": "string"
+  }
+]
+```
+
+---
+
+### GET `/analytics-settings-rest/v1.0/fields`
+
+`[FieldSummary] AnalyticsSettingsRest.v1.0.getField`
+
+| Property | Value |
+| :--- | :--- |
+| Auth Required | `true` |
+| Response Schema | `AnalyticsSettingsRest.v1.0.FieldSummary` |
+
+```json
+{
+  "summary": "string",
+  "activeFields": 0
+}
+```
+
+---
+
+### GET `/analytics-settings-rest/v1.0/recommendation/configuration`
+
+`[RecommendationConfiguration] AnalyticsSettingsRest.v1.0.getRecommendationConfiguration`
+
+| Property | Value |
+| :--- | :--- |
+| Auth Required | `true` |
+| Response Schema | `AnalyticsSettingsRest.v1.0.RecommendationConfiguration` |
+
+```json
+{
+  "enabled": true,
+  "provider": "string"
+}
+```
+
+---
+
+### PUT `/analytics-settings-rest/v1.0/recommendation/configuration`
+
+`[RecommendationConfiguration] AnalyticsSettingsRest.v1.0.putRecommendationConfiguration`
+
+| Property | Value |
+| :--- | :--- |
+| Auth Required | `true` |
+| Request Body | `AnalyticsSettingsRest.v1.0.RecommendationConfiguration` |
+| Response | `application/json`, `application/xml` |
+
+```json
+{
+  "enabled": true,
+  "provider": "string"
+}
+```
+
+---
+
+### GET `/analytics-settings-rest/v1.0/sites`
+
+`[Site] AnalyticsSettingsRest.v1.0.getSitesPage`
+
+| Parameter | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `keywords` | query | `string` | No | Search keywords |
+| `page` | query | `string` | No | Page number |
+| `pageSize` | query | `string` | No | Items per page |
+| `sort` | query | `string` | No | Sort criteria |
+
+| Property | Value |
+| :--- | :--- |
+| Auth Required | `true` |
+| Response Schema | `AnalyticsSettingsRest.v1.0.PageSite` |
+
+```json
+{
+  "items": [
+    {
+      "id": "string",
+      "name": "string"
+    }
+  ],
+  "page": 1,
+  "pageSize": 20,
+  "totalCount": 1
+}
+```

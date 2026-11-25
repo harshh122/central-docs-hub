@@ -1,0 +1,68 @@
+---
+id: "database-overview"
+title: "Database Overview"
+sidebar_position: 1
+description: "Architecture reference detailing database configuration classes, batch deployment managers, and GovCon360 data layers."
+---
+
+:::warning[INTERNAL]
+This page is for engineering and operations. It documents internal services, extensions, and configurations without exposing credentials.
+:::
+
+## System overview
+
+The GovCon360 database and backend layer consists of 6 core modules totaling 4,527 analyzed files. The architecture integrates headless data structures, REST export services, batch deployment management, grid services, and datalake connectivity. 
+
+```mermaid
+flowchart TD
+    subgraph Data_Layers_Services["Data Layers & Services"]
+        A[nl-batch-deployment-manager] --> B[BatchDeploymentConfiguration]
+        C[nl-govcon-datalake] --> D[DatalakeConfiguration]
+        E[nl-govcon-export-rest-service] --> F[ExportConfiguration]
+        G[nl-govcon-grid-rest-service] --> H[FragmentConfiguration]
+        I[nl-govcon-account-utils] --> J[LocalObjectEntryQuery]
+    end
+
+    subgraph Operations_Batch["Operations & Batch"]
+        B --> K[ClientExtensionPackageService]
+        K --> L[PackageInspector]
+        K --> M[DeployPackageMVCResourceCommand]
+        K --> N[GetImportTasksMVCResourceCommand]
+        K --> O[GetPackagesMVCResourceCommand]
+    end
+
+    subgraph Portal_Interface["Portal Interface"]
+        P[BatchDeploymentPanelApp] --> Q[BatchDeploymentPortlet]
+    end
+
+    Data Layers -.-> Portal Interface
+```
+
+## Components and extensions
+
+The backend components comprise OSGi configurations, services, portlets, and resource commands across the project modules.
+
+| Component | Type | Friendly URL / Config | OAuth Scopes / Details |
+| :--- | :--- | :--- | :--- |
+| `BatchDeploymentConfiguration` | Interface | `nl.batch.deployment.manager.configuration` | OCD configuration for staging and deployment directories. |
+| `DatalakeConfiguration` | Interface | `nl.govcon.datalake.configuration` | OCD configuration handling access token URLs and client credentials. |
+| `ExportConfiguration` | Interface | `nl.govcon.export.rest.service.internal.configurations` | OCD configuration managing export limits for Excel, CSV, and PDF formats. |
+| `FragmentConfiguration` | Interface | `nl.govcon.grid.rest.service.util` | OCD configuration for site ID and fragment collection naming. |
+| `BatchDeploymentPanelApp` | Class | `nl.batch.deployment.manager.application.list` | OSGi Component rendering the deployment panel application. |
+| `BatchDeploymentPortlet` | Class | `nl.batch.deployment.manager.portlet` | OSGi Component executing portlet rendering and JSON language generation. |
+| `ClientExtensionPackageService` | Class | `nl.batch.deployment.manager.service` | Service handling deployment, inventorying, and package processing. |
+| `DeployPackageMVCResourceCommand` | Class | `nl.batch.deployment.manager.resource` | MVC Resource Command serving package deployment mutations. |
+| `GetImportTasksMVCResourceCommand` | Class | `nl.batch.deployment.manager.resource` | MVC Resource Command retrieving active and recent import tasks. |
+| `GetPackagesMVCResourceCommand` | Class | `nl.batch.deployment.manager.resource` | MVC Resource Command retrieving inventory packages and host details. |
+| `ImportTaskService` | Class | `nl.batch.deployment.manager.service` | Service extracting recent import task summaries with task limits. |
+| `PackageInspector` | Class | `nl.batch.deployment.manager.inspector` | Service inspecting packages, reading configs, and parsing build stamps. |
+| `LocalObjectEntryQuery` | Class | `nl.govcon.account` | Query component handling object entry lists, counts, and expressions. |
+
+## Data and integration points
+
+The platform manages interactions across batch deployment pipelines, external datalake authentication, and object entry queries:
+
+- **Batch Deployment Manager (`nl.batch.deployment.manager`)**: Coordinates file staging, deployment execution, package inspection, and MVC resource commands (`DeployPackageMVCResourceCommand`, `GetImportTasksMVCResourceCommand`, `GetPackagesMVCResourceCommand`). Configured via `BatchDeploymentConfiguration` with configurable recent import task limits.
+- **Datalake Integration (`nl.govcon.datalake`)**: Manages external endpoint synchronization via `DatalakeConfiguration`, implementing OAuth client credentials workflows (`getClientId`, `getClientSecret`, `getAccessTokenUrl`, `getGrantType`).
+- **Export & Grid Services (`nl.govcon-export-rest-service`, `nl.govcon-grid-rest-service`)**: Provides robust limits for tabular data exports (`ExportConfiguration`) and fragment collection targeting (`FragmentConfiguration`).
+- **Account Utilities (`nl.govcon-account-utils`)**: Executes querying operations on local object entries using `LocalObjectEntryQuery` for text, numeric, and flag filtering expressions.

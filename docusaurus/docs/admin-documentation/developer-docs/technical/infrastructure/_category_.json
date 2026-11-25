@@ -1,0 +1,9 @@
+{
+  "label": "Infrastructure",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "title": "Infrastructure",
+    "description": "Docker, Groovy operational scripts, environment configs, and deployment."
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "label": "Admin Documentation",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "title": "Admin Documentation",
+    "description": "Admin portal guides and internal developer documentation."
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "label": "Developer Documentation",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "title": "Developer Documentation",
+    "description": "Internal system architecture, APIs, and technical documentation."
+  }
+}

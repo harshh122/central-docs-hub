@@ -1,0 +1,65 @@
+---
+id: "master-apis-part-2"
+title: "Master APIs (Part 2 of 2)"
+sidebar_position: 7
+description: "Reference documentation for Master APIs (Part 2 of 2)."
+---
+
+See also [Part 1](./master-apis.mdx).
+
+## Endpoints
+
+### GET `/api/master/v1/award-id`
+
+Retrieves the list of award IDs. Supports optional keyword-based searching using the specified search option (`EXACT`, `STARTS_WITH`, `ENDS_WITH`, or `CONTAINS`). If no keyword is provided, all award IDs are returned.
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `keyword` | query | string | No | Search keyword for filtering award IDs. |
+| `search_option` | query | string | No | Matching rule (`EXACT`, `STARTS_WITH`, `ENDS_WITH`, `CONTAINS`). |
+
+#### Response
+
+```json
+{
+  "status": "success",
+  "data": [
+    {
+      "id": "12345",
+      "awardId": "N00014-23-C-0001"
+    }
+  ]
+}
+```
+
+---
+
+### GET `/api/master/v1/agencies`
+
+Retrieves the list of agencies. With `search_option` `CONTAINS`, `STARTS_WITH`, `PREFIX`, `FUZZY`, `PHRASE` or `ALL` the keyword is a typeahead search: the last word matches as a prefix, words may contain typos, the full agency name and acronym (DOD, NASA) also match, and results are ranked best first with departments ahead of sub-agencies. `EXACT`, `ENDS_WITH` and the other options keep their literal SQL meaning. `page` (0-based) and `limit` page the results; without a limit up to 1000 rows are returned. If no keyword is provided, departments come first.
+
+#### Parameters
+
+| Name | Location | Type | Required | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `keyword` | query | string | No | Search keyword for filtering agencies. |
+| `search_option` | query | string | No | Search matching strategy. |
+| `page` | query | integer(int32) | No | Page number (0-based). |
+| `limit` | query | integer(int32) | No | Number of records to return (up to 1000). |
+
+#### Response
+
+```json
+{
+  "status": "success",
+  "data": [
+    {
+      "agencyCode": "9700",
+      "agencyName": "Department of Defense",
+      "acronym": "DOD"
+    }
+  ]
+}
+```

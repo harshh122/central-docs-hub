@@ -1,0 +1,33 @@
+---
+id: "015-administration"
+title: "Administration"
+sidebar_position: 1
+description: "Manage invoices, track payment status, and review billing information."
+---
+
+Manage invoices, track payment status, and keep all billing information organized in one place from the **Administration** page. Access this view by selecting **Commerce → Administration** in the top navigation bar.
+
+![Administration](/img/admin/015-administration-screenshot.png)
+
+## Invoice metrics and summary cards
+
+At the top of the page, metric cards summarize your billing status:
+- **Outstanding**: Displays the current total of unpaid balances.
+- **Overdue**: Tracks the count of past-due invoices.
+- **Draft**: Shows invoices that have been saved but not yet finalized or sent.
+
+## Search and filters
+
+Use the filter controls above the invoice table to narrow down your list:
+
+| Field | Type | Required | Notes |
+| :--- | :--- | :--- | :--- |
+| **Search by recipient name or invoice numnber** | text | No | Type keywords to instantly filter records. |
+| **All Status** | select-one | No | Filter records by payment state (e.g., Paid, Overdue, Draft). |
+| **All Payment Method** | select-one | No | Filter by method such as ACH or credit card. |
+
+## Managing invoices
+
+To add a new invoice to the system, click the **Upload Invoice** button in the top right corner. 
+
+The invoice data table displays core billing attributes including **Name**, **Invoice Number**, **Invoice Date**, **Due date**, **Billing piriod**, **Amount**, **Payment Method**, and **Status**. Use the inline action icons to view or download specific records.

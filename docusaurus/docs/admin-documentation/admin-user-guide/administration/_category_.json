@@ -1,0 +1,9 @@
+{
+  "label": "Administration",
+  "position": 8,
+  "link": {
+    "type": "generated-index",
+    "title": "Administration",
+    "description": "Administration guides."
+  }
+}
